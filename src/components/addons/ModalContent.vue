@@ -1,7 +1,9 @@
 <template>
   <div v-if="isOpen" class="modal-container">
     <div class="modal-wrapper" :class="sizeClass" v-on-clickaway="closeModal">
-      <slot name="header"/>
+      <div class="header-wrapper">
+        <slot name="header"/>
+      </div>
       <slot name="body"/>
       <div class="buttons-container">
         <mom-button @click="closeModal">Cancel</mom-button>
@@ -47,7 +49,6 @@ export default {
     },
     setAction() {
       this.$emit('apply');
-      this.closeModal();
     },
   },
 };
@@ -55,13 +56,15 @@ export default {
 
 <style scoped lang="scss">
   .modal-container {
-    position: absolute;
+    position: fixed;
+    top: 0;
+    bottom: 0;
     width: 100%;
     height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(233, 233, 233, 0.8);
+    background-color: rgba(203, 203, 203, 0.6);
     .modal-wrapper {
       background-color: #fff;
       border-radius: 4px;
@@ -89,6 +92,16 @@ export default {
         bottom: 10px;
         left: 10px;
         right: 10px;
+      }
+      .header-wrapper {
+        width: 100%;
+        height: 80px;
+        box-shadow: 0px 2px 4px 0 rgba(33, 33, 33, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        font-weight: 300;
       }
     }
   }

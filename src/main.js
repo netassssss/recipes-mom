@@ -1,10 +1,14 @@
 import Vue from 'vue';
+import Vuex from 'vuex';
 import App from './App.vue';
 import './registerServiceWorker';
 import router from './router';
-import store from './store';
+import storeHelper from './store/helper';
 
 Vue.config.productionTip = false;
+
+Vue.use(Vuex);
+const store = storeHelper.generateStore();
 
 new Vue({
   router,
