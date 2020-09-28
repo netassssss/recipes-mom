@@ -5,9 +5,9 @@
         <slot name="header"/>
       </div>
       <slot name="body"/>
-      <div class="buttons-container">
-        <mom-button @click="closeModal">Cancel</mom-button>
-        <mom-button @click="setAction">OK</mom-button>
+      <div class="buttons-container" :class="{'single-button-container': !cancelText}">
+        <mom-button @click="closeModal" v-if="cancelText">{{ cancelText }}</mom-button>
+        <mom-button @click="setAction">{{ okText }}</mom-button>
       </div>
     </div>
   </div>
@@ -36,6 +36,14 @@ export default {
       type: String,
       validaor: (size) => sizes.indexOf(size) > -1,
       default: 'big',
+    },
+    okText: {
+      type: String,
+      default: 'OK',
+    },
+    cancelText: {
+      type: String,
+      default: 'Cancel',
     },
   },
   computed: {
@@ -93,6 +101,9 @@ export default {
         left: 10px;
         right: 10px;
       }
+      .single-button-container {
+        justify-content: flex-end;
+      }
       .header-wrapper {
         width: 100%;
         height: 80px;
@@ -100,8 +111,8 @@ export default {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
-        font-weight: 300;
+        font-size: 20px;
+        font-weight: 500;
       }
     }
   }

@@ -6,7 +6,11 @@
         <div>Add recipe</div>
       </div>
     </mom-button>
-    <modal-content :is-open="isModalOpen" @close="closeModal" @apply="nextStep">
+    <modal-content :is-open="isModalOpen"
+                   @close="closeModalAndReset"
+                   @apply="nextStep"
+                   :ok-text="currentButtons.okText"
+                   :cancel-text="currentButtons.cancelText">
       <template slot="header">
         <div>{{ title }}</div>
       </template>
@@ -52,10 +56,17 @@ export default {
     currentComponents() {
       return steps[this.step] ? steps[this.step].features : [];
     },
+    currentButtons() {
+      return steps[this.step] ? steps[this.step].buttons : { okText: '', cancelText: '' };
+    },
   },
   methods: {
     nextStep() {
       this.step += 1;
+    },
+    closeModalAndReset() {
+      this.step = 0;
+      this.closeModal();
     },
   },
 };
