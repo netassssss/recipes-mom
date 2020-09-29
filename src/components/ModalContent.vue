@@ -16,7 +16,7 @@
 <script>
 
 import { directive as onClickaway } from 'vue-clickaway';
-import MomButton from '../MomButton.vue';
+import MomButton from './MomButton.vue';
 
 const sizes = ['small', 'middle', 'big'];
 

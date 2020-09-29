@@ -1,7 +1,7 @@
 import Vuex from 'vuex';
 import main from './index';
-import { STORE_NAME as modalName } from './modalStore/const';
-import modalStore from './modalStore/index';
+import { STORE_NAME as modalName } from './addRecipeStore/const';
+import modalStore from './addRecipeStore/index';
 
 const debug = process.env.NODE_ENV !== 'production';
 

@@ -21,8 +21,9 @@
 
 <script>
 
-import ModalContent from '../../components/addons/ModalContent.vue';
+import ModalContent from '../../components/ModalContent.vue';
 import AddRecipe from './AddRecipeContent.vue';
+import AddIngredients from './AddIngredients.vue';
 
 import { steps } from './const';
 
@@ -30,6 +31,7 @@ export default {
   components: {
     AddRecipe,
     ModalContent,
+    AddIngredients,
   },
   props: {
     isModalOpen: {
