@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     setIng(index, value, key) {
-      this.$store.dispatch(setIngredients, { key, value });
+      this.$store.dispatch(setIngredients, { key, value, index });
     },
     addNewLine() {
       this.$store.dispatch(addNewIng);

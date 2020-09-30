@@ -6,7 +6,7 @@
       </div>
       <slot name="body"/>
       <div class="buttons-container" :class="{'single-button-container': !cancelText}">
-        <mom-button @click="closeModal" v-if="cancelText">{{ cancelText }}</mom-button>
+        <mom-button @click="cancelAction" v-if="cancelText">{{ cancelText }}</mom-button>
         <mom-button @click="setAction">{{ okText }}</mom-button>
       </div>
     </div>
@@ -57,6 +57,9 @@ export default {
     },
     setAction() {
       this.$emit('apply');
+    },
+    cancelAction() {
+      this.$emit('cancel');
     },
   },
 };

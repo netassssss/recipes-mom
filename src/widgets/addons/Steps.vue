@@ -2,6 +2,7 @@
   <div class="steps-container">
     <modal-content :is-open="isModalOpen"
                    @close="closeModalAndReset"
+                   @cancel="backStep"
                    @apply="nextStep"
                    :ok-text="currentButtons.okText"
                    :cancel-text="currentButtons.cancelText">
@@ -60,8 +61,15 @@ export default {
     nextStep() {
       this.step += 1;
     },
-    closeModalAndReset() {
+    resetModal() {
       this.step = 0;
+    },
+    backStep() {
+      if (this.step > 1) this.step -= 1;
+      else this.resetModal();
+    },
+    closeModalAndReset() {
+      this.resetModal();
       this.$emit('close');
     },
   },
