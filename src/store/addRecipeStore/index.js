@@ -10,6 +10,7 @@ const getState = () => ({
       units: '',
     },
   ],
+  titles: {},
 });
 const actions = {
   setProcess({ commit }, { key, value }) {
@@ -34,6 +35,11 @@ const actions = {
     if (index < ingredients.length) ingredients[index][key] = value;
     commit('SET_INGREDIENTS', ingredients);
   },
+  setIngredientsTitle({ commit, state }, { title, key }) {
+    const { titles } = state;
+    titles[key] = title;
+    commit('SET_TITLES', titles);
+  },
 };
 const mutations = {
   SET_PROCESS(state, { key, value }) {
@@ -45,6 +51,9 @@ const mutations = {
   },
   SET_INGREDIENTS(state, ingredients) {
     state.ingredients = ingredients;
+  },
+  SET_TITLES(state, titles) {
+    state.titles = titles;
   },
 };
 

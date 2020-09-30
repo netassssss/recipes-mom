@@ -13,7 +13,7 @@
         <div v-for="(comp, index) in currentComponents"
              :key="index"
              class="components-container">
-          <component :is="comp"/>
+          <component :is="comp" :step="step"/>
         </div>
       </template>
     </modal-content>
@@ -59,7 +59,7 @@ export default {
   },
   methods: {
     nextStep() {
-      this.step += 1;
+      if (this.step < steps.length - 1) this.step += 1;
     },
     resetModal() {
       this.step = 0;
