@@ -13,7 +13,7 @@
         <div v-for="(comp, index) in currentComponents"
              :key="index"
              class="components-container">
-          <component :is="comp" :step="step"/>
+          <component :is="comp" v-bind="currentProps"/>
         </div>
       </template>
     </modal-content>
@@ -25,6 +25,7 @@
 import ModalContent from '../../components/ModalContent.vue';
 import AddRecipe from './AddRecipeContent.vue';
 import AddIngredients from './AddIngredients.vue';
+import AdditionalStep from './AdditionalStep.vue';
 
 import { steps } from './const';
 
@@ -32,6 +33,7 @@ export default {
   components: {
     AddRecipe,
     ModalContent,
+    AdditionalStep,
     AddIngredients,
   },
   props: {
@@ -44,6 +46,7 @@ export default {
     return {
       steps,
       step: 0,
+      additionalText: 'Add Additional Ingredients?',
     };
   },
   computed: {
@@ -56,17 +59,30 @@ export default {
     currentButtons() {
       return steps[this.step] ? steps[this.step].buttons : { okText: '', cancelText: '' };
     },
+    currentProps() {
+      return steps[this.step] && steps[this.step].props
+        ? steps[this.step].props.reduce((acc, prop) => ({ ...acc, [prop]: this[prop] }), {})
+        : {};
+    },
   },
   methods: {
-    nextStep() {
+    defaultApply() {
       if (this.step < steps.length - 1) this.step += 1;
+    },
+    nextStep() {
+      if (steps[this.step] && steps[this.step].applyFunc) steps[this.step].applyFunc.call(this);
+      else this.defaultApply();
     },
     resetModal() {
       this.step = 0;
     },
-    backStep() {
+    defaultBack() {
       if (this.step > 1) this.step -= 1;
       else this.resetModal();
+    },
+    backStep() {
+      if (steps[this.step] && steps[this.step].backFunc) steps[this.step].backFunc.call(this);
+      else this.defaultBack();
     },
     closeModalAndReset() {
       this.resetModal();
