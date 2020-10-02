@@ -13,7 +13,8 @@
         <div v-for="(comp, index) in currentComponents"
              :key="index"
              class="components-container">
-          <component :is="comp" v-bind="currentProps"/>
+          <component :is="comp"
+                     v-bind="currentProps"/>
         </div>
       </template>
     </modal-content>
@@ -26,6 +27,8 @@ import ModalContent from '../../components/ModalContent.vue';
 import AddRecipe from './AddRecipeContent.vue';
 import AddIngredients from './AddIngredients.vue';
 import AdditionalStep from './AdditionalStep.vue';
+import DescriptionStep from './Description.vue';
+import AddIngredientsTitle from './AddIngredientsTitle.vue';
 
 import { steps } from './const';
 
@@ -35,6 +38,8 @@ export default {
     ModalContent,
     AdditionalStep,
     AddIngredients,
+    DescriptionStep,
+    AddIngredientsTitle,
   },
   props: {
     isModalOpen: {
@@ -46,6 +51,7 @@ export default {
     return {
       steps,
       step: 0,
+      titleNum: 0,
       additionalText: 'Add Additional Ingredients?',
     };
   },

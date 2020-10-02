@@ -1,13 +1,5 @@
 <template>
   <div>
-    <div class="label-container">
-      <label for="desc" class="long-label"
-      >Ingredients Title:</label>
-      <mom-input id="title"
-                 :value="getIngredientsTitles[step]"
-                 placeholder="Enter Ingredients' Title"
-                 @change="setTitle"/>
-    </div>
     <ul class="ingredients-list-container"
         :style="{'max-height': `${modalSize}px`, 'height': `${modalSize}px`}">
       <li v-for="(item, index) in ingredients"
@@ -51,7 +43,7 @@
 import { mapGetters } from 'vuex';
 import { STORE_NAME } from '../../store/addRecipeStore/const';
 import {
-  setIngredients, addNewIng, removeIng, setIngredientsTitle,
+  setIngredients, addNewIng, removeIng,
 } from '../../store/addRecipeStore/actions';
 
 import MomButton from '../../components/MomButton.vue';
@@ -75,7 +67,6 @@ export default {
   computed: {
     ...mapGetters({
       ingredients: `${STORE_NAME}/ingredients`,
-      getIngredientsTitles: `${STORE_NAME}/getIngredientsTitles`,
     }),
   },
   methods: {
@@ -87,9 +78,6 @@ export default {
     },
     removeNewLine(index) {
       this.$store.dispatch(removeIng, { index });
-    },
-    setTitle(title) {
-      this.$store.dispatch(setIngredientsTitle, { title, key: this.step });
     },
   },
 };
