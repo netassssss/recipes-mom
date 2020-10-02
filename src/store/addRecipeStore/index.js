@@ -53,8 +53,9 @@ const actions = {
     }
     commit('SET_INGREDIENTS', ingredients);
   },
-  addDescription({ commit, state }, { title }) {
-    const { description } = state;
+  addDescription({ commit, state }) {
+    const { description, recipeProcess } = state;
+    const { title } = recipeProcess;
     if (!description[title]) description[title] = [];
     description[title].push(`${description[title].length + 1}.`);
     commit('SET_DESCRIPTION', description);
@@ -101,7 +102,7 @@ const mutations = {
     state.ingredients = { ...ingredients };
   },
   SET_DESCRIPTION(state, description) {
-    state.description = description;
+    state.description = { ...description };
   },
   SET_TITLES(state, { key, step }) {
     const { titles } = state;

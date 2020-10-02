@@ -42,7 +42,7 @@ export const steps = [
     title: 'Step 4 - Steps to Make it Happen!',
     features: ['DescriptionStep'],
     buttons: { okText: 'Next', cancelText: 'Back' },
-    backFunc() { this.defaultBack(); this.titleNum -= 1; },
+    backFunc() { this.step = 1; },
   },
 ];
 
