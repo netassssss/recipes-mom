@@ -17,14 +17,14 @@ export const steps = [
       if (this.$store.getters['modal/innerTitle'].length > this.titleNum) {
         this.step += 1;
         this.titleNum += 1;
-        this.$store.dispatch('modal/addIngredientsByTitle');
+        this.$store.dispatch('modal/addIngredientsByTitle', { step: this.titleNum - 1 });
       }
     },
   },
   {
     title: 'Step 3 - Add ingredients',
     features: ['AddIngredients'],
-    props: ['step'],
+    props: ['step', 'titleNum'],
     buttons: { okText: 'Next', cancelText: 'Back' },
     backFunc() { this.defaultBack(); this.titleNum -= 1; },
   },
@@ -33,13 +33,16 @@ export const steps = [
     features: ['AdditionalStep'],
     props: ['additionalText'],
     buttons: { okText: 'Yes', cancelText: 'No' },
-    applyFunc() { this.step -= 1; },
+    applyFunc() {
+      this.step = 1;
+    },
     backFunc() { if (this.step < steps.length - 1) this.step += 1; },
   },
   {
     title: 'Step 4 - Steps to Make it Happen!',
     features: ['DescriptionStep'],
-    buttons: { okText: 'Next', cancelText: '' },
+    buttons: { okText: 'Next', cancelText: 'Back' },
+    backFunc() { this.defaultBack(); this.titleNum -= 1; },
   },
 ];
 

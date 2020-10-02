@@ -38,10 +38,10 @@ const actions = {
   setIngredientsTitle({ commit }, { key, step }) {
     commit('SET_TITLES', { key, step });
   },
-  addIngredientsByTitle({ commit, state }) {
+  addIngredientsByTitle({ commit, state }, { step }) {
     const { ingredients, titles } = state;
     const ingKeys = Object.keys(ingredients);
-    const currentTitle = ingKeys[ingKeys.length - 1];
+    const currentTitle = ingKeys[step];
     if (ingredients[currentTitle]) {
       ingredients[titles[titles.length - 1]] = ingredients[currentTitle];
     } else {

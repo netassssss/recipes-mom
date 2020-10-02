@@ -63,11 +63,18 @@ export default {
       type: Number,
       default: 0,
     },
+    titleNum: {
+      type: Number,
+      default: 0,
+    },
   },
   computed: {
     ...mapGetters({
-      ingredients: `${STORE_NAME}/ingredients`,
+      getIngredients: `${STORE_NAME}/ingredients`,
     }),
+    ingredients() {
+      return this.getIngredients(this.titleNum - 1);
+    },
   },
   methods: {
     setIng(index, value, key) {
