@@ -65,6 +65,10 @@ const actions = {
     if (description[title]) description[title][index] = desc;
     commit('SET_DESCRIPTION', description);
   },
+  saveRecipeToDB({ state }) {
+    const { recipeProcess, ingredients, description } = state;
+    const { title } = recipeProcess;
+  },
 };
 const mutations = {
   SET_PROCESS(state, { key, value }) {

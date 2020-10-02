@@ -44,6 +44,12 @@ export const steps = [
     buttons: { okText: 'Next', cancelText: 'Back' },
     backFunc() { this.step = 0; },
   },
+  {
+    title: 'Final Step - Save',
+    features: ['SaveToDb'],
+    buttons: { okText: 'Yes', cancelText: 'Back' },
+    applyFunc() {},
+  },
 ];
 
 export default {
