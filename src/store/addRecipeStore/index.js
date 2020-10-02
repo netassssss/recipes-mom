@@ -11,42 +11,46 @@ const actions = {
   setProcess({ commit }, { key, value }) {
     commit('SET_PROCESS', { key, value });
   },
-  addNewIng({ commit, state }, { title }) {
+  addNewIng({ commit, state }) {
     const { ingredients } = state;
-    if (!ingredients[title]) {
-      ingredients[title] = [];
-    }
-    ingredients[title].push({
-      ing: '',
-      amount: '',
-      units: '',
-    });
-    commit('SET_INGREDIENTS', ingredients);
+    const ingKeys = Object.keys(ingredients);
+    const title = ingKeys[ingKeys.length - 1];
+    commit('SET_NEW_INGREDIENTS', { title });
   },
-  removeIng({ commit, state }, { title, index }) {
+  removeIng({ commit, state }, { index }) {
     const { ingredients } = state;
-    if (ingredients[title]) ingredients[title].splice(index, 1);
-    commit('SET_INGREDIENTS', ingredients);
+    const ingKeys = Object.keys(ingredients);
+    const title = ingKeys[ingKeys.length - 1];
+    commit('REMOVE_INGREDIENTS', { title, index });
   },
   setIngredients({ commit, state }, {
-    title, key, value, index,
+    key, value, index,
   }) {
     const { ingredients } = state;
+    const ingKeys = Object.keys(ingredients);
+    const title = ingKeys[ingKeys.length - 1];
     if (ingredients[title] && index < ingredients[title].length) {
-      ingredients[title][index][key] = value;
+      commit('UPDATE_INGREDIENTS', {
+        index, key, value, title,
+      });
     }
-    commit('SET_INGREDIENTS', ingredients);
   },
   setIngredientsTitle({ commit }, { key, step }) {
     commit('SET_TITLES', { key, step });
   },
   addIngredientsByTitle({ commit, state }) {
     const { ingredients, titles } = state;
-    ingredients[titles[titles.length - 1]] = [{
-      ing: '',
-      amount: '',
-      units: '',
-    }];
+    const ingKeys = Object.keys(ingredients);
+    const currentTitle = ingKeys[ingKeys.length - 1];
+    if (ingredients[currentTitle]) {
+      ingredients[titles[titles.length - 1]] = ingredients[currentTitle];
+    } else {
+      ingredients[titles[titles.length - 1]] = [{
+        ing: '',
+        amount: '',
+        units: '',
+      }];
+    }
     commit('SET_INGREDIENTS', ingredients);
   },
   addDescription({ commit, state }, { title }) {
@@ -70,7 +74,31 @@ const mutations = {
     state.recipeProcess = recipe;
   },
   SET_INGREDIENTS(state, ingredients) {
-    state.ingredients = ingredients;
+    state.ingredients = { ...ingredients };
+  },
+  SET_NEW_INGREDIENTS(state, { title }) {
+    const { ingredients } = state;
+    if (!ingredients[title]) {
+      ingredients[title] = [];
+    }
+    ingredients[title].push({
+      ing: '',
+      amount: '',
+      units: '',
+    });
+    state.ingredients = { ...ingredients };
+  },
+  UPDATE_INGREDIENTS(state, {
+    index, key, value, title,
+  }) {
+    const { ingredients } = state;
+    ingredients[title][index][key] = value;
+    state.ingredients = { ...ingredients };
+  },
+  REMOVE_INGREDIENTS(state, { title, index }) {
+    const { ingredients } = state;
+    if (ingredients[title]) ingredients[title].splice(index, 1);
+    state.ingredients = { ...ingredients };
   },
   SET_DESCRIPTION(state, description) {
     state.description = description;

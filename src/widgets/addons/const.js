@@ -25,7 +25,8 @@ export const steps = [
     title: 'Step 3 - Add ingredients',
     features: ['AddIngredients'],
     props: ['step'],
-    buttons: { okText: 'Next', cancelText: '' },
+    buttons: { okText: 'Next', cancelText: 'Back' },
+    backFunc() { this.defaultBack(); this.titleNum -= 1; },
   },
   {
     title: 'Step 3 - Add Additional ingredients?',
