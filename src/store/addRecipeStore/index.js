@@ -69,7 +69,9 @@ const actions = {
   async saveRecipeToDB({ state }) {
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
-    await Api.saveRecipe({ ingredients, description: description[title], title });
+    await Api.saveRecipe({
+      ingredients, description: description[title], title, insert: true,
+    });
   },
 };
 const mutations = {

@@ -22,9 +22,9 @@ const parseData = ({ ingredients, description, title }) => ({
 
 module.exports = async (args) => {
   const { req, res, firebase } = parseReqArguments(args);
-  const { ingredients, description, title } = req.body;
+  const { ingredients, description, title, insert } = req.body;
   try {
-    await setDocumentInDb(firebase, parseData({ ingredients, description, title }), true);
+    await setDocumentInDb(firebase, parseData({ ingredients, description, title }), !!insert);
   } catch (e) {
     console.log('error on update', e);
   } finally {
