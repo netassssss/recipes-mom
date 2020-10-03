@@ -6,7 +6,7 @@
         <div>Add recipe</div>
       </div>
     </mom-button>
-    <update />
+    <update @update="openModal"/>
     <steps :is-modal-open="isModalOpen" @close="closeModal"/>
   </div>
 </template>

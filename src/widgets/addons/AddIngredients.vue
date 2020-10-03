@@ -33,13 +33,13 @@
                       class="ingredients-button">Remove</mom-button>
         </div>
       </li>
-      <!--<textarea autofocus @change="getText"/>-->
     </ul>
   </div>
 </template>
 
 <script>
 
+/* eslint no-debugger: 0 */
 import { mapGetters } from 'vuex';
 import { STORE_NAME } from '../../store/addRecipeStore/const';
 import {

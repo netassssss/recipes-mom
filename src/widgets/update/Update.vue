@@ -17,7 +17,8 @@
 
 /* eslint no-debugger:0 */
 import { mapGetters } from 'vuex';
-import { init } from '../../store/getRecipeStore/actions';
+import { init, getCurrentRecipeData } from '../../store/getRecipeStore/actions';
+import { updateUiRecipe } from '../../store/addRecipeStore/actions';
 import { STORE_NAME } from '../../store/getRecipeStore/const';
 
 import MomDropwon from '../../components/MomDropdown.vue';
@@ -40,9 +41,21 @@ export default {
     };
   },
   methods: {
-    setSelectedItem(item) {
+    async setSelectedItem(item) {
       if (!item) [this.selectedItem] = this.items;
       else this.selectedItem = item;
+      const recipe = await this.$store.dispatch(getCurrentRecipeData, {
+        title: this.selectedItem.name,
+      });
+      if (recipe) {
+        this.$store.dispatch(updateUiRecipe, {
+          title: this.selectedItem.name,
+          ingredients: recipe[this.selectedItem.name].ingredients,
+          description: recipe[this.selectedItem.name].description,
+          documentId: recipe.documentId,
+        });
+        this.$emit('update');
+      }
     },
   },
 };

@@ -7,8 +7,32 @@ const getState = () => ({
   ingredients: {},
   description: {},
   titles: [],
+  documentId: null,
 });
 const actions = {
+  updateUiRecipe({ dispatch, commit }, {
+    title, ingredients, description, documentId,
+  }) {
+    dispatch('setProcess', { key: 'title', value: title });
+    Object.keys(ingredients)
+      .forEach((currentTitle, index) => {
+        dispatch('setIngredientsTitle', { key: currentTitle, step: index });
+        ingredients[currentTitle]
+          .forEach((ingItem, ingInd) => {
+            if (ingInd === 0) dispatch('addIngredientsByTitle', { step: index });
+            else dispatch('addNewIng');
+            dispatch('setIngredients', { key: 'ing', value: ingItem.ing, index: ingInd });
+            dispatch('setIngredients', { key: 'amount', value: ingItem.amount, index: ingInd });
+            dispatch('setIngredients', { key: 'units', value: ingItem.units, index: ingInd });
+          });
+      });
+    description
+      .forEach((desc, index) => {
+        dispatch('addDescription');
+        dispatch('setDescription', { desc, index });
+      });
+    commit('SET_DOCUMENT_ID', documentId);
+  },
   setProcess({ commit }, { key, value }) {
     commit('SET_PROCESS', { key, value });
   },
@@ -55,11 +79,9 @@ const actions = {
     commit('SET_INGREDIENTS', ingredients);
   },
   addDescription({ commit, state }) {
-    const { description, recipeProcess } = state;
+    const { recipeProcess } = state;
     const { title } = recipeProcess;
-    if (!description[title]) description[title] = [];
-    description[title].push(`${description[title].length + 1}.`);
-    commit('SET_DESCRIPTION', description);
+    commit('ADD_DESCRIPTION', { title });
   },
   setDescription({ commit, state }, { desc, index }) {
     const { description, recipeProcess } = state;
@@ -70,7 +92,7 @@ const actions = {
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
     await Api.saveRecipe({
-      ingredients, description: description[title], title, insert: true,
+      ingredients, description: description[title], title, documentId: state.documentId,
     });
   },
 };
@@ -112,11 +134,20 @@ const mutations = {
   SET_DESCRIPTION(state, description) {
     state.description = { ...description };
   },
+  ADD_DESCRIPTION(state, { title }) {
+    const { description } = state;
+    if (!description[title]) description[title] = [];
+    description[title].push(`${description[title].length + 1}.`);
+    state.description = { ...description };
+  },
   SET_TITLES(state, { key, step }) {
     const { titles } = state;
     if (step < titles.length) titles[step] = key;
     else titles.push(key);
     state.titles = titles;
+  },
+  SET_DOCUMENT_ID(state, id) {
+    state.documentId = id;
   },
 };
 
