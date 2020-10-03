@@ -1,4 +1,5 @@
 /* eslint no-debugger:0 */
+
 export const steps = [
   {
     title: 'Step 1 - Insert recipe title',
@@ -48,7 +49,9 @@ export const steps = [
     title: 'Final Step - Save',
     features: ['SaveToDb'],
     buttons: { okText: 'Yes', cancelText: 'Back' },
-    applyFunc() {},
+    applyFunc() {
+      this.$store.dispatch('modal/saveRecipeToDB');
+    },
   },
 ];
 

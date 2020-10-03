@@ -29,11 +29,13 @@ import AddIngredients from './AddIngredients.vue';
 import AdditionalStep from './AdditionalStep.vue';
 import DescriptionStep from './Description.vue';
 import AddIngredientsTitle from './AddIngredientsTitle.vue';
+import SaveToDb from './SaveToDb.vue';
 
 import { steps } from './const';
 
 export default {
   components: {
+    SaveToDb,
     AddRecipe,
     ModalContent,
     AdditionalStep,

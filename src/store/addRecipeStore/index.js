@@ -1,4 +1,5 @@
 import getters from './getters';
+import Api from './api';
 
 /* eslint no-debugger:0 */
 const getState = () => ({
@@ -65,9 +66,10 @@ const actions = {
     if (description[title]) description[title][index] = desc;
     commit('SET_DESCRIPTION', description);
   },
-  saveRecipeToDB({ state }) {
+  async saveRecipeToDB({ state }) {
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
+    await Api.saveRecipe({ ingredients, description, title });
   },
 };
 const mutations = {

@@ -6,7 +6,7 @@ const storageBucket = 'recipe-mom-78b40.appspot.com';
 const senderId = '506227838357';
 const appId = '1:506227838357:web:389e9b9fb1f6db681e3a9c';
 const mId = 'G-QRM2VD2EP1';
-const path = 'recipe-mom-78b40';
+const path = 'recipes';
 
 module.exports = {
   mId,
