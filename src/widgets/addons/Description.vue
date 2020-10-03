@@ -7,7 +7,7 @@
       <li v-for="(desc, index) in description"
           :key="index"
           class="single-item">
-        <textarea @change="setDescription" :value="desc"/>
+        <textarea @input="({ target }) => setDescription(target, index)" :value="desc"/>
       </li>
     </ul>
   </div>
@@ -37,8 +37,8 @@ export default {
     }),
   },
   methods: {
-    setDescription({ target }) {
-      this.$store.dispatch(setDescription, { desc: target.value });
+    setDescription(target, index) {
+      this.$store.dispatch(setDescription, { desc: target.value, index });
     },
     addNewLine() {
       this.$store.dispatch(addDescription);

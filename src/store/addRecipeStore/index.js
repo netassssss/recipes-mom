@@ -61,15 +61,15 @@ const actions = {
     description[title].push(`${description[title].length + 1}.`);
     commit('SET_DESCRIPTION', description);
   },
-  setDescription({ commit, state }, { title, desc, index }) {
-    const { description } = state;
-    if (description[title]) description[title][index] = desc;
+  setDescription({ commit, state }, { desc, index }) {
+    const { description, recipeProcess } = state;
+    if (description[recipeProcess.title]) description[recipeProcess.title][index] = desc;
     commit('SET_DESCRIPTION', description);
   },
   async saveRecipeToDB({ state }) {
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
-    await Api.saveRecipe({ ingredients, description, title });
+    await Api.saveRecipe({ ingredients, description: description[title], title });
   },
 };
 const mutations = {

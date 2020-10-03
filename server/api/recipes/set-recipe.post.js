@@ -1,21 +1,22 @@
 const { path } = require('../../consts/firebase');
-const { parseReqArguments } = require('../../utils/dbHelper');
+const { parseReqArguments, generateDocumentName } = require('../../utils/dbHelper');
 
-const setDocumentInDb = async (firebase, data) => {
-  const documentName = data.documentId;
+const setDocumentInDb = async (firebase, data, insert) => {
+  const documentName = insert
+    ? generateDocumentName(Math.floor(Math.random() * 100))
+    : data.documentId;
 
+  const nodeData = { ...data, documentId: documentName };
   const categoryRef = firebase.collection(path).doc(documentName);
 
-  await categoryRef.update({ current: data.current });
+  const funcName = insert ? 'set' : 'update';
+  await categoryRef[funcName](nodeData, { merge: true });
 };
 
 const parseData = ({ ingredients, description, title }) => ({
-  documentId: title,
-  current: {
-    [title]: {
-      ingredients,
-      description,
-    },
+  [title]: {
+    ingredients,
+    description,
   },
 });
 
@@ -23,7 +24,7 @@ module.exports = async (args) => {
   const { req, res, firebase } = parseReqArguments(args);
   const { ingredients, description, title } = req.body;
   try {
-    await setDocumentInDb(firebase, parseData({ ingredients, description, title }));
+    await setDocumentInDb(firebase, parseData({ ingredients, description, title }), true);
   } catch (e) {
     console.log('error on update', e);
   } finally {
