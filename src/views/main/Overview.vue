@@ -6,6 +6,7 @@
         <div>Add recipe</div>
       </div>
     </mom-button>
+    <update />
     <steps :is-modal-open="isModalOpen" @close="closeModal"/>
   </div>
 </template>
@@ -15,12 +16,14 @@ import MomButton from '../../components/MomButton.vue';
 import recipeIcon from '../../../static/img/recipeIcon.png';
 import modalMixin from '../../mixins/modalMixin';
 
+import Update from '../../widgets/update/Update.vue';
 import Steps from '../../widgets/addons/Steps.vue';
 
 export default {
   mixins: [modalMixin],
   components: {
     Steps,
+    Update,
     MomButton,
   },
   data() {

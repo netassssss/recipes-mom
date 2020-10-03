@@ -3,6 +3,9 @@ import main from './index';
 import { STORE_NAME as modalName } from './addRecipeStore/const';
 import modalStore from './addRecipeStore/index';
 
+import { STORE_NAME as recipeName } from './getRecipeStore/const';
+import recipeStore from './getRecipeStore/index';
+
 const debug = process.env.NODE_ENV !== 'production';
 
 class StoreHelper {
@@ -16,6 +19,7 @@ class StoreHelper {
       modules: {
         main,
         [modalName]: modalStore,
+        [recipeName]: recipeStore,
       },
       strict: debug,
     });
