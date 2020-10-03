@@ -2,13 +2,20 @@ import getters from './getters';
 
 import Api from './api';
 
-const getState = () => ({});
+const getState = () => ({
+  recipes: [],
+});
 const actions = {
-  async init() {
-    await Api.getRecipes();
+  async init({ commit }) {
+    const response = await Api.getRecipes();
+    commit('SET_RECIPES', response.body.data);
   },
 };
-const mutations = {};
+const mutations = {
+  SET_RECIPES(state, data) {
+    state.recipes = data;
+  },
+};
 
 export default {
   namespaced: true,

@@ -41,7 +41,7 @@ export default {
     box-shadow: none;
     border-radius: 4px;
     border: none;
-    font-size: 14px;
+    font-size: 16px;
     min-width: 100px;
     &:hover {
       background-color: $base-hover-color;
