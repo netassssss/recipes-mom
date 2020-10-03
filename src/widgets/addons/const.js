@@ -51,6 +51,7 @@ export const steps = [
     buttons: { okText: 'Yes', cancelText: 'Back' },
     applyFunc() {
       this.$store.dispatch('modal/saveRecipeToDB');
+      this.closeModalAndReset();
     },
   },
 ];
