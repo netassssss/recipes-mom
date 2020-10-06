@@ -6,7 +6,7 @@
           :key="index"
           :style="{width: liWidth}"
           @click="() => selectTab(item)">
-        <div>{{ item }}</div>
+        <slot :item="item" :index="index"/>
       </li>
     </ul>
   </div>

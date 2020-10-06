@@ -1,13 +1,13 @@
 <template>
   <div class="overview-container">
-    <mom-nav-bar :items="navItems" @select="selectTab"/>
-<!--    <mom-button style-type="info" @click="openModalOnAdd">-->
-<!--      <div class="button-container">-->
-<!--        <img :src="recipeIcon" class="overview-img"/>-->
-<!--        <div>Add recipe</div>-->
-<!--      </div>-->
-<!--    </mom-button>-->
-<!--    <update @update="openModalOnUpdate" v-if="isUpdate"/>-->
+    <mom-nav-bar :items="navItems" @select="selectTab">
+      <template v-slot:default="slotProp">
+        <div class="button-container">
+          <img :src="navIcons[slotProp.index]" class="overview-img"/>
+          <div>{{ slotProp.item }}</div>
+        </div>
+      </template>
+    </mom-nav-bar>
     <steps :is-modal-open="isModalOpen"
            @close="closeModal"
            :update="isUpdate"/>
@@ -16,7 +16,8 @@
 
 <script>
 import MomNavBar from '../../components/MomNavBar.vue';
-import recipeIcon from '../../../static/img/recipeIcon.png';
+import addIcon from '../../../static/img/addIcon.svg';
+import updateIcon from '../../../static/img/updateIcon.png';
 import modalMixin from '../../mixins/modalMixin';
 
 import Steps from '../../widgets/addons/Steps.vue';
@@ -30,8 +31,8 @@ export default {
   data() {
     return {
       isUpdate: false,
-      recipeIcon,
       navItems: ['Add Recipe', 'Update Recipe'],
+      navIcons: [addIcon, updateIcon],
     };
   },
   methods: {
@@ -57,14 +58,14 @@ export default {
     height: 100%;
     .button-container {
       display: grid;
-      grid-template-columns: 20px calc(100% - 20px);
+      grid-template-columns: 30px calc(100% - 30px);
       grid-column-gap: 10px;
       padding-right: 10px;
       align-items: center;
     }
     .overview-img {
-      width: 20px;
-      height: 20px;
+      width: 30px;
+      height: 30px;
     }
   }
 </style>
