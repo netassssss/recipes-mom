@@ -1,13 +1,15 @@
 <template>
   <div class="overview-container">
-    <mom-button style-type="info" @click="openModal">
+    <mom-button style-type="info" @click="openModalOnAdd">
       <div class="button-container">
         <img :src="recipeIcon" class="overview-img"/>
         <div>Add recipe</div>
       </div>
     </mom-button>
-    <update @update="openModal"/>
-    <steps :is-modal-open="isModalOpen" @close="closeModal"/>
+    <update @update="openModalOnUpdate"/>
+    <steps :is-modal-open="isModalOpen"
+           @close="closeModal"
+           :update="isUpdate"/>
   </div>
 </template>
 
@@ -28,8 +30,19 @@ export default {
   },
   data() {
     return {
+      isUpdate: false,
       recipeIcon,
     };
+  },
+  methods: {
+    openModalOnAdd() {
+      this.isUpdate = false;
+      this.openModal();
+    },
+    openModalOnUpdate() {
+      this.isUpdate = true;
+      this.openModal();
+    },
   },
 };
 </script>

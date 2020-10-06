@@ -37,7 +37,7 @@ export default {
     height: 40px;
     background: $big-base-color;
     input {
-      width: 100%;
+      width: calc(100% - 20px);
       height: 100%;
       background-color: inherit;
       padding: 0 10px;

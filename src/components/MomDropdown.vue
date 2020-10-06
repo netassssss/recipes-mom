@@ -77,7 +77,7 @@ export default {
     }
   }
   .dropdown-container {
-    min-width: 160px;
+    min-width: 182px;
     height: 30px;
     position: relative;
     .selected-item {

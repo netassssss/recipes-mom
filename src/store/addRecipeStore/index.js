@@ -8,6 +8,7 @@ const getState = () => ({
   description: {},
   titles: [],
   documentId: null,
+  titleToUpdate: null,
 });
 const actions = {
   updateUiRecipe({ dispatch, commit }, {
@@ -78,6 +79,21 @@ const actions = {
     }
     commit('SET_INGREDIENTS', ingredients);
   },
+  updateIngredientsByTitle({ commit, state }, { step }) {
+    const { ingredients, titles } = state;
+    const ingKeys = Object.keys(ingredients);
+    const currentTitle = ingKeys[step];
+    if (ingredients[currentTitle]) {
+      ingredients[titles[step]] = ingredients[currentTitle];
+    } else {
+      ingredients[titles[step]] = [{
+        ing: '',
+        amount: '',
+        units: '',
+      }];
+    }
+    commit('SET_INGREDIENTS', ingredients);
+  },
   addDescription({ commit, state }) {
     const { recipeProcess } = state;
     const { title } = recipeProcess;
@@ -94,6 +110,9 @@ const actions = {
     await Api.saveRecipe({
       ingredients, description: description[title], title, documentId: state.documentId,
     });
+  },
+  setUpdateTitle({ commit }, { title }) {
+    commit('SET_UPDATE_TITLE', title);
   },
 };
 const mutations = {
@@ -148,6 +167,9 @@ const mutations = {
   },
   SET_DOCUMENT_ID(state, id) {
     state.documentId = id;
+  },
+  SET_UPDATE_TITLE(state, titleToUpdate) {
+    state.titleToUpdate = titleToUpdate;
   },
 };
 

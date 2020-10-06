@@ -40,24 +40,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  .label-container {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    align-items: center;
-    position: relative;
-    padding: 5px 0;
-    .long-label {
-      width: 150px;
-    }
-    label {
-      width: 100px;
-    }
-    input {
-      height: 30px;
-    }
-    .ingredients-button {
-      padding-left: 60px;
-    }
-  }
+  @import "src/styles/common";
+  @include label-and-button-container(150px);
 </style>

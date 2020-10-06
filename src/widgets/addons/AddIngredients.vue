@@ -92,6 +92,7 @@ export default {
 
 <style scoped lang="scss">
   @import "../../styles/colors";
+  @import "../../styles/common";
   .ingredients-container {
     width: 100%;
     height: 100%;
@@ -104,6 +105,7 @@ export default {
     overflow: auto;
     position: relative;
     margin: 0;
+    padding: 0;
     textarea {
       width: 100%;
       height: 100%;
@@ -127,24 +129,5 @@ export default {
       }
     }
   }
-  .label-container {
-    display: flex;
-    width: 100%;
-    height: 40px;
-    align-items: center;
-    position: relative;
-    padding: 5px 0;
-    .long-label {
-      width: 150px;
-    }
-    label {
-      width: 100px;
-    }
-    input {
-      height: 30px;
-    }
-    .ingredients-button {
-      padding-left: 60px;
-    }
-  }
+  @include label-and-button-container(150px);
 </style>
