@@ -5,6 +5,9 @@ export const steps = [
     title: 'Step 1 - Insert recipe title',
     features: ['AddRecipe'],
     buttons: { okText: 'Next', cancelText: '' },
+    created() {
+      this.$store.dispatch('modal/resetData');
+    },
     applyFunc() {
       if (this.$store.getters['modal/getTitle']) this.step += 1;
     },

@@ -1,12 +1,13 @@
 <template>
   <div class="overview-container">
-    <mom-button style-type="info" @click="openModalOnAdd">
-      <div class="button-container">
-        <img :src="recipeIcon" class="overview-img"/>
-        <div>Add recipe</div>
-      </div>
-    </mom-button>
-    <update @update="openModalOnUpdate"/>
+    <mom-nav-bar :items="navItems" @select="selectTab"/>
+<!--    <mom-button style-type="info" @click="openModalOnAdd">-->
+<!--      <div class="button-container">-->
+<!--        <img :src="recipeIcon" class="overview-img"/>-->
+<!--        <div>Add recipe</div>-->
+<!--      </div>-->
+<!--    </mom-button>-->
+<!--    <update @update="openModalOnUpdate" v-if="isUpdate"/>-->
     <steps :is-modal-open="isModalOpen"
            @close="closeModal"
            :update="isUpdate"/>
@@ -14,24 +15,23 @@
 </template>
 
 <script>
-import MomButton from '../../components/MomButton.vue';
+import MomNavBar from '../../components/MomNavBar.vue';
 import recipeIcon from '../../../static/img/recipeIcon.png';
 import modalMixin from '../../mixins/modalMixin';
 
-import Update from '../../widgets/update/Update.vue';
 import Steps from '../../widgets/addons/Steps.vue';
 
 export default {
   mixins: [modalMixin],
   components: {
     Steps,
-    Update,
-    MomButton,
+    MomNavBar,
   },
   data() {
     return {
       isUpdate: false,
       recipeIcon,
+      navItems: ['Add Recipe', 'Update Recipe'],
     };
   },
   methods: {
@@ -42,6 +42,10 @@ export default {
     openModalOnUpdate() {
       this.isUpdate = true;
       this.openModal();
+    },
+    selectTab(tab) {
+      if (tab === this.navItems[0]) this.openModalOnAdd();
+      else this.openModalOnUpdate();
     },
   },
 };

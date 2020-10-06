@@ -2,6 +2,7 @@ import { STORE_NAME } from './const';
 
 export const addNewIng = `${STORE_NAME}/addNewIng`;
 export const removeIng = `${STORE_NAME}/removeIng`;
+export const resetData = `${STORE_NAME}/resetData`;
 export const setProcess = `${STORE_NAME}/setProcess`;
 export const setUpdateTitle = `${STORE_NAME}/setUpdateTitle`;
 export const updateUiRecipe = `${STORE_NAME}/updateUiRecipe`;
@@ -16,6 +17,7 @@ export const updateIngredientsByTitle = `${STORE_NAME}/updateIngredientsByTitle`
 export default {
   addNewIng,
   removeIng,
+  resetData,
   setProcess,
   setUpdateTitle,
   updateUiRecipe,

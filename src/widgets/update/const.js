@@ -2,9 +2,17 @@
 
 export const steps = [
   {
+    title: 'Choose recipe to update',
+    features: ['Updatedropdown'],
+    buttons: { okText: 'Next', cancelText: '' },
+    applyFunc() {
+      if (this.$store.getters['modal/documentId']) this.step += 1;
+    },
+  },
+  {
     title: 'Step 1 - Update recipe title',
     features: ['AddRecipe'],
-    buttons: { okText: 'Next', cancelText: '' },
+    buttons: { okText: 'Next', cancelText: 'Back' },
     applyFunc() {
       if (this.$store.getters['modal/getTitle']) this.step += 1;
     },
@@ -52,7 +60,7 @@ export const steps = [
     backFunc() { this.defaultBack(); this.titleNum -= 1; },
   },
   {
-    title: 'Step 3 - Add Additional ingredients?',
+    title: 'Step 4 - Add Additional ingredients?',
     features: ['AdditionalStep'],
     props: ['additionalText'],
     buttons: { okText: 'Yes', cancelText: 'No' },
@@ -62,7 +70,7 @@ export const steps = [
     backFunc() { if (this.step < steps.length - 1) this.step += 1; },
   },
   {
-    title: 'Step 4 - Steps to Make it Happen!',
+    title: 'Step 5 - Steps to Make it Happen!',
     features: ['DescriptionStep'],
     buttons: { okText: 'Next', cancelText: 'Back' },
     backFunc() { this.step = 0; },

@@ -34,6 +34,9 @@ const actions = {
       });
     commit('SET_DOCUMENT_ID', documentId);
   },
+  resetData({ commit }) {
+    commit('RESET_ALL');
+  },
   setProcess({ commit }, { key, value }) {
     commit('SET_PROCESS', { key, value });
   },
@@ -170,6 +173,14 @@ const mutations = {
   },
   SET_UPDATE_TITLE(state, titleToUpdate) {
     state.titleToUpdate = titleToUpdate;
+  },
+  RESET_ALL(state) {
+    state.recipeProcess = {};
+    state.ingredients = {};
+    state.description = {};
+    state.titles = [];
+    state.documentId = null;
+    state.titleToUpdate = null;
   },
 };
 

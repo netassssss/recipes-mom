@@ -31,11 +31,13 @@ import DescriptionStep from './Description.vue';
 import AddIngredientsTitle from './AddIngredientsTitle.vue';
 import SaveToDb from './SaveToDb.vue';
 
+import Updatedropdown from '../update/Update.vue';
 import UpdateTitle from '../update/UpdateIngredientsTitle.vue';
 
 import { steps as addSteps } from './const';
 import { steps as updateSteps } from '../update/const';
 
+/* eslint no-debugger:0 */
 export default {
   components: {
     SaveToDb,
@@ -44,6 +46,7 @@ export default {
     ModalContent,
     AdditionalStep,
     AddIngredients,
+    Updatedropdown,
     DescriptionStep,
     AddIngredientsTitle,
   },
@@ -107,6 +110,14 @@ export default {
     closeModalAndReset() {
       this.resetModal();
       this.$emit('close');
+    },
+  },
+  watch: {
+    isModalOpen: {
+      immediate: true,
+      handler() {
+        if (this.steps[this.step].created) this.steps[this.step].created.call(this);
+      },
     },
   },
 };

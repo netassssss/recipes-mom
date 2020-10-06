@@ -8,10 +8,12 @@ export const innerTitle = (state) => state.titles;
 
 // -- update -- //
 export const getUpdateTitle = (state) => state.titleToUpdate;
+export const documentId = (state) => state.documentId;
 
 export default {
   getTitle,
   innerTitle,
+  documentId,
   ingredients,
   getDescription,
   getUpdateTitle,
