@@ -76,6 +76,7 @@ export default {
     align-items: center;
     justify-content: center;
     background-color: rgba(203, 203, 203, 0.6);
+    z-index: 2;
     .modal-wrapper {
       background-color: #fff;
       border-radius: 4px;

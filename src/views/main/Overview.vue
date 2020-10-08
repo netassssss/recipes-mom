@@ -1,6 +1,8 @@
 <template>
   <div class="overview-container">
-    <mom-nav-bar :items="navItems" @select="selectTab">
+    <mom-nav-bar :items="navItems"
+                 @select="selectTab"
+                 :selected-item="selectedItem">
       <template v-slot:default="slotProp">
         <div class="button-container">
           <img :src="navIcons[slotProp.index]" class="overview-img"/>
@@ -9,30 +11,43 @@
       </template>
     </mom-nav-bar>
     <steps :is-modal-open="isModalOpen"
-           @close="closeModal"
+           @close="resetAndCloseTabs"
            :update="isUpdate"/>
+    <all-recipes v-if="showAllRecipes"/>
   </div>
 </template>
 
 <script>
+/* eslint no-debugger:0 */
 import MomNavBar from '../../components/MomNavBar.vue';
 import addIcon from '../../../static/img/addIcon.svg';
 import updateIcon from '../../../static/img/updateIcon.png';
 import modalMixin from '../../mixins/modalMixin';
 
 import Steps from '../../widgets/addons/Steps.vue';
+import AllRecipes from '../../widgets/get/AllRecipes.vue';
+
+import { init } from '../../store/getRecipeStore/actions';
 
 export default {
   mixins: [modalMixin],
   components: {
     Steps,
     MomNavBar,
+    AllRecipes,
+  },
+  created() {
+    this.$store.dispatch(init);
   },
   data() {
+    const navItems = ['All Recipes', 'Add Recipe', 'Update Recipe'];
+    const selectedItem = navItems[0];
     return {
+      showAllRecipes: true,
       isUpdate: false,
-      navItems: ['Add Recipe', 'Update Recipe'],
-      navIcons: [addIcon, updateIcon],
+      navItems,
+      selectedItem,
+      navIcons: ['', addIcon, updateIcon],
     };
   },
   methods: {
@@ -44,15 +59,27 @@ export default {
       this.isUpdate = true;
       this.openModal();
     },
+    resetTabs() {
+      [this.selectedItem] = this.navItems;
+      this.showAllRecipes = true;
+    },
+    resetAndCloseTabs() {
+      this.closeModal();
+      this.resetTabs();
+    },
     selectTab(tab) {
-      if (tab === this.navItems[0]) this.openModalOnAdd();
-      else this.openModalOnUpdate();
+      this.selectedItem = tab;
+      this.showAllRecipes = false;
+      if (tab === this.navItems[1]) this.openModalOnAdd();
+      else if (tab === this.navItems[2]) this.openModalOnUpdate();
+      else this.resetTabs();
     },
   },
 };
 </script>
 
 <style scoped lang="scss">
+  @import "../../styles/colors";
   .overview-container {
     width: 100%;
     height: 100%;

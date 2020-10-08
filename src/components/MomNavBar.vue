@@ -5,6 +5,7 @@
       <li v-for="(item, index) in items"
           :key="index"
           :style="{width: liWidth}"
+          :class="{'selected': item === selectedItem}"
           @click="() => selectTab(item)">
         <slot :item="item" :index="index"/>
       </li>
@@ -19,6 +20,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    selectedItem: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -64,6 +69,7 @@ export default {
   left: 0;
   color: #000;
   font-size: 22px;
+  z-index: 1;
   .navbar-ul {
     width: 100%;
     height: 100%;
@@ -83,6 +89,10 @@ export default {
         background: $base-hover-color;
         color: #fff;
       }
+    }
+    .selected {
+      background: $base-hover-color;
+      color: #fff;
     }
   }
 }

@@ -17,7 +17,7 @@
 
 /* eslint no-debugger:0 */
 import { mapGetters } from 'vuex';
-import { init, getCurrentRecipeData } from '../../store/getRecipeStore/actions';
+import { getCurrentRecipeData } from '../../store/getRecipeStore/actions';
 import { updateUiRecipe } from '../../store/addRecipeStore/actions';
 import { STORE_NAME } from '../../store/getRecipeStore/const';
 
@@ -26,9 +26,6 @@ import MomDropwon from '../../components/MomDropdown.vue';
 export default {
   components: {
     MomDropwon,
-  },
-  created() {
-    this.$store.dispatch(init);
   },
   computed: {
     ...mapGetters({

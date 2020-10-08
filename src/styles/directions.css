@@ -1,0 +1,20 @@
+.rtl {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+.rtl > div:nth-child(1):not('.content-left-side') {
+  order: 1;
+}
+.rtl > div:nth-child(2):not('.content-left-side') {
+  order: 3;
+}
+.rtl > div:nth-child(3):not('.content-left-side') {
+  order: 2;
+}
+.rtl .content-left-side {
+  order: 2;
+}
+.rtl .content-right-side {
+  order: 1;
+}
