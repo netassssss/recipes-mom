@@ -4,21 +4,26 @@ import '../styles/directions.css';
 const Directions = {
   install(Vue, options) {
     Vue.mixin({
-      computed: {
-        getCustomDirectionClass() {
-          return this.rtl ? 'rtl' : '';
-        },
-      },
       data() {
         return {
           rtl: options.rtl || false,
+          directionClass: '',
         };
       },
       methods: {
         changeDirection(isRtl) {
           this.rtl = isRtl;
-          if (!document.body.classList.contains('.rtl')) document.body.classList.add('.rtl');
-          else document.body.classList.remove('.rtl');
+        },
+        getCustomDirectionClass() {
+          this.directionClass = this.rtl ? 'rtl' : '';
+        },
+      },
+      watch: {
+        rtl: {
+          immediate: true,
+          handler() {
+            this.getCustomDirectionClass();
+          },
         },
       },
     });

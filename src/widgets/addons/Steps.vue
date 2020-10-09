@@ -50,6 +50,11 @@ export default {
     DescriptionStep,
     AddIngredientsTitle,
   },
+  created() {
+    if (this.steps[this.step] && this.steps[this.step].created) {
+      this.steps[this.step].created.call(this);
+    }
+  },
   props: {
     isModalOpen: {
       type: Boolean,

@@ -5,6 +5,9 @@ export const steps = [
     title: 'Choose recipe to update',
     features: ['Updatedropdown'],
     buttons: { okText: 'Next', cancelText: '' },
+    created() {
+      this.$store.dispatch('modal/resetData');
+    },
     applyFunc() {
       if (this.$store.getters['modal/documentId']) this.step += 1;
     },

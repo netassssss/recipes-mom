@@ -13,16 +13,16 @@
 </g>
     </svg>
     </div>
-    <div class="content-sides" :class="getCustomDirectionClass">
+    <div class="content-sides" :class="directionClass">
       <div class="content-left-side">
-        <h1 :class="getCustomDirectionClass">{{ title }}</h1>
+        <h1 :class="directionClass">{{ title }}</h1>
         <div v-for="(ingTitle, ind) in ingTitles"
              :key="ind">
-          <div class="ing-title" :class="getCustomDirectionClass">{{ ingTitle }}</div>
+          <div class="ing-title" :class="directionClass">{{ ingTitle }}</div>
           <ul v-for="(ing, index) in ingredients[ingTitle]"
               :key="index"
               class="ingredients-container">
-            <li :class="getCustomDirectionClass">
+            <li :class="directionClass">
               <div class="padding-right">{{ ing.ing }}</div>
               <div class="padding-right" v-if="ing.amount">{{ ing.amount }}</div>
               <div class="padding-right" v-if="ing.units">{{ ing.units }}</div>
@@ -34,7 +34,7 @@
         <ul v-for="(desc, descInd) in description"
             :key="descInd"
             class="ingredients-container">
-          <li :class="getCustomDirectionClass">
+          <li :class="directionClass">
             <div>{{ desc }}</div>
           </li>
         </ul>

@@ -10,10 +10,14 @@
         <slot :item="item" :index="index"/>
       </li>
     </ul>
+    <div class="lang-cont">
+<!--      <language />-->
+    </div>
   </div>
 </template>
 
 <script>
+
 /* eslint no-debugger:0 */
 export default {
   props: {
@@ -94,6 +98,11 @@ export default {
       background: $base-hover-color;
       color: #fff;
     }
+  }
+  .lang-cont {
+    position: absolute;
+    right: 10px;
+    top: 10px;
   }
 }
 </style>
