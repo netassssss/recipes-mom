@@ -2,8 +2,8 @@
 export const getTitle = (state) => state.recipeProcess.title || '';
 export const ingredients = (state) => (step) => state.ingredients[state.titles[step]]
   || [];
-export const getDescription = (state) => (state.recipeProcess.title
-  ? state.description[state.recipeProcess.title] : []);
+export const getDescription = (state) => (state.originalTitle
+  ? state.description[state.originalTitle] : []);
 export const innerTitle = (state) => state.titles;
 
 // -- update -- //

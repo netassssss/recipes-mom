@@ -20,9 +20,10 @@
       <div class="content-right-side">
         <ul v-for="(desc, descInd) in description"
             :key="descInd"
-            class="ingredients-container">
-          <li :class="directionClass">
-            <div>{{ desc }}</div>
+            class="ingredients-container"
+            :class="directionClass">
+          <li>
+            <p>{{ desc }}</p>
           </li>
         </ul>
       </div>
@@ -112,11 +113,10 @@ export default {
     .ingredients-container {
       list-style: none;
       margin: 0;
-      padding: 0;
+      padding: 10px 0 0 0;
       width: 100%;
       li {
         width: 100%;
-        height: 30px;
         display: flex;
         align-items: center;
         .padding-right {

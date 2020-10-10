@@ -21,7 +21,8 @@
 /* eslint no-debugger:0 */
 import MomNavBar from '../../components/MomNavBar.vue';
 import addIcon from '../../../static/img/addIcon.svg';
-import updateIcon from '../../../static/img/updateIcon.png';
+import updateIcon from '../../../static/img/updateIcon.svg';
+import recipesIcon from '../../../static/img/recipesIcon.svg';
 import modalMixin from '../../mixins/modalMixin';
 
 import Steps from '../../widgets/addons/Steps.vue';
@@ -47,7 +48,7 @@ export default {
       isUpdate: false,
       navItems,
       selectedItem,
-      navIcons: ['', addIcon, updateIcon],
+      navIcons: [recipesIcon, addIcon, updateIcon],
     };
   },
   methods: {

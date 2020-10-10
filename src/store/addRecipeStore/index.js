@@ -8,13 +8,14 @@ const getState = () => ({
   description: {},
   titles: [],
   documentId: null,
+  originalTitle: null,
   titleToUpdate: null,
 });
 const actions = {
   updateUiRecipe({ dispatch, commit }, {
     title, ingredients, description, documentId,
   }) {
-    dispatch('setProcess', { key: 'title', value: title });
+    dispatch('setUpdateProcess', { key: 'title', value: title });
     Object.keys(ingredients)
       .forEach((currentTitle, index) => {
         dispatch('setIngredientsTitle', { key: currentTitle, step: index });
@@ -36,6 +37,9 @@ const actions = {
   },
   resetData({ commit }) {
     commit('RESET_ALL');
+  },
+  setUpdateProcess({ commit }, { key, value }) {
+    commit('SET_UPDATE_PROCESS', { key, value });
   },
   setProcess({ commit }, { key, value }) {
     commit('SET_PROCESS', { key, value });
@@ -108,6 +112,7 @@ const actions = {
     commit('SET_DESCRIPTION', description);
   },
   async saveRecipeToDB({ state }) {
+    debugger;
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
     await Api.saveRecipe({
@@ -170,6 +175,17 @@ const mutations = {
   },
   SET_DOCUMENT_ID(state, id) {
     state.documentId = id;
+  },
+  SET_UPDATE_PROCESS(state, { key, value }) {
+    const recipe = {
+      ...state.recipeProcess,
+      [key]: value,
+    };
+    state.recipeProcess = recipe;
+    state.description = {
+      [recipe.title]: state.description[state.originalTitle],
+    };
+    state.originalTitle = recipe.title;
   },
   SET_UPDATE_TITLE(state, titleToUpdate) {
     state.titleToUpdate = titleToUpdate;

@@ -1,5 +1,6 @@
 const { path } = require('../../consts/firebase');
 const { parseReqArguments, generateDocumentName } = require('../../utils/dbHelper');
+const getRecipes = require('./recipes.get');
 
 const setDocumentInDb = async (firebase, data, documentId) => {
   const documentName = documentId || generateDocumentName(Math.floor(Math.random() * 100));
@@ -25,7 +26,6 @@ module.exports = async (args) => {
     await setDocumentInDb(firebase, parseData({ ingredients, description, title }), documentId);
   } catch (e) {
     console.log('error on update', e);
-  } finally {
-    res.send(true);
   }
+  getRecipes(args);
 };
