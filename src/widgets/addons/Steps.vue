@@ -14,6 +14,7 @@
              :key="index"
              class="components-container">
           <component :is="comp"
+                     @nextStep="nextStep"
                      v-bind="currentProps"/>
         </div>
       </template>

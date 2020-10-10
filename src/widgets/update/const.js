@@ -29,14 +29,17 @@ export const steps = [
     applyFunc() {
       const title = this.$store.getters['modal/getUpdateTitle'];
       const titles = this.$store.getters['modal/innerTitle'];
-      if (title) {
+      if (title && title !== 'SkipThisPhase2345') {
         const index = titles.indexOf(title);
         this.titleNum = index;
-      } else {
+        this.step += 1;
+      } else if (title !== 'SkipThisPhase2345') {
         this.titleNum = titles.length;
         this.$store.dispatch('modal/addIngredientsByTitle', { step: this.titleNum - 1 });
+        this.step += 1;
+      } else {
+        this.step = 6;
       }
-      this.step += 1;
     },
   },
   {

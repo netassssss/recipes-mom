@@ -12,6 +12,7 @@
         <template v-slot:default="slotProps">{{ slotProps.item }}</template>
       </mom-dropdown>
     </div>
+    <mom-button @click="skipHandlr">Skip This Phase</mom-button>
   </div>
 </template>
 
@@ -19,16 +20,18 @@
 
 /* eslint no-debugger:0 */
 import { mapGetters } from 'vuex';
-import { STORE_NAME } from '@/store/addRecipeStore/const';
+import { STORE_NAME, SkipThisPhase2345 } from '@/store/addRecipeStore/const';
 import { setUpdateTitle } from '../../store/addRecipeStore/actions';
 
 import MomDropdown from '../../components/MomDropdown.vue';
+import MomButton from '../../components/MomButton.vue';
 
 const INITIAL_SELECTION = 'Select/Add Ingredient';
 const ADD_NEW_INGREDIENTS = 'Add New';
 
 export default {
   components: {
+    MomButton,
     MomDropdown,
   },
   computed: {
@@ -55,6 +58,10 @@ export default {
     },
     add() {
       this.$store.dispatch(setUpdateTitle, { title: '' });
+    },
+    skipHandlr() {
+      this.$store.dispatch(setUpdateTitle, { title: SkipThisPhase2345 });
+      this.$emit('nextStep');
     },
   },
 };
