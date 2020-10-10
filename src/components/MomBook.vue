@@ -1,18 +1,5 @@
 <template>
   <div class="book-container">
-    <div class="book-bg">
-      <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-           viewBox="0 0 200 200" xml:space="preserve">
-<g>
-  <g>
-    <path d="M0 0 l100 0 l -2 0 l 0 200 l 2 0 l 0 -200 l 98 0 l0 200 l-200 0 l0 -200"
-          fill="transparent"
-          stroke="#000"
-          stroke-width="0.3"/>
-	</g>
-</g>
-    </svg>
-    </div>
     <div class="content-sides" :class="directionClass">
       <div class="content-left-side">
         <h1 :class="directionClass">{{ title }}</h1>
@@ -38,6 +25,9 @@
             <div>{{ desc }}</div>
           </li>
         </ul>
+      </div>
+      <div class="book-line">
+        <div class="inner-book-separator"></div>
       </div>
     </div>
   </div>
@@ -66,6 +56,12 @@ export default {
       return this.content && this.content.description ? this.content.description : [];
     },
   },
+  data() {
+    return {
+      height: 200,
+      width: 200,
+    };
+  },
 };
 </script>
 
@@ -75,23 +71,30 @@ export default {
   height: 100%;
   padding-top: 60px;
   position: relative;
-  .book-bg {
-    position: absolute;
-    top: 60px;
-    bottom: 0;
-    left: 0;
-    right: 0;
-  }
-  img {
-    width: 100%;
-    height: 100%;
-  }
   .content-sides {
-    width: calc(100% - 40px);
+    width: 100%;
     display: flex;
     align-items: flex-start;
     max-height: 100%;
     overflow: auto;
+    position: relative;
+    .book-line {
+      border: 1px solid #000;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      .inner-book-separator {
+        height: 100%;
+        width: 10px;
+        border-left: 1px solid #000;
+        border-right: 1px solid #000;
+        position: absolute;
+        top: 0;
+        left: calc(50% - 5px);
+      }
+    }
     .content-left-side {
       h1 {
         margin: 0;
