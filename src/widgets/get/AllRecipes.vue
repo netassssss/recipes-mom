@@ -50,7 +50,7 @@ export default {
   },
   methods: {
     onRightHandlr() {
-      if (this.allRecipes(this.currentRecipeIndex)) this.currentRecipeIndex += 1;
+      if (this.allRecipes(this.currentRecipeIndex + 1)) this.currentRecipeIndex += 1;
     },
     onLeftHandlr() {},
   },
