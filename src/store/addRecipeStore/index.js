@@ -112,12 +112,12 @@ const actions = {
     commit('SET_DESCRIPTION', description);
   },
   async saveRecipeToDB({ state }) {
-    debugger;
     const { recipeProcess, ingredients, description } = state;
     const { title } = recipeProcess;
-    await Api.saveRecipe({
+    const response = await Api.saveRecipe({
       ingredients, description: description[title], title, documentId: state.documentId,
     });
+    return response;
   },
   setUpdateTitle({ commit }, { title }) {
     commit('SET_UPDATE_TITLE', title);

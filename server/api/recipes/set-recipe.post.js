@@ -8,8 +8,11 @@ const setDocumentInDb = async (firebase, data, documentId) => {
   const nodeData = { ...data, documentId: documentName };
   const categoryRef = firebase.collection(path).doc(documentName);
 
-  const funcName = documentId ? 'update' : 'set';
-  await categoryRef[funcName](nodeData, { merge: true });
+  if (documentId) {
+    // delete first and then set
+    await categoryRef.delete();
+  }
+  await categoryRef.set(nodeData, { merge: true });
 };
 
 const parseData = ({ ingredients, description, title }) => ({

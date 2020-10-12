@@ -52,8 +52,9 @@ export const steps = [
     title: 'Final Step - Save',
     features: ['SaveToDb'],
     buttons: { okText: 'Yes', cancelText: 'Back' },
-    applyFunc() {
-      this.$store.dispatch('modal/saveRecipeToDB');
+    async applyFunc() {
+      const response = await this.$store.dispatch('modal/saveRecipeToDB');
+      this.$store.dispatch('recipes/saveRecipes', { recipes: response.body.data });
       this.closeModalAndReset();
     },
   },

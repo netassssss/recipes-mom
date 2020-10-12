@@ -17,6 +17,9 @@ const actions = {
       .find((recipe) => Object.keys(recipe).find((r) => r !== 'documentId' && r !== 'level' && r === title));
     return item;
   },
+  saveRecipes({ commit }, { recipes }) {
+    commit('SET_RECIPES', recipes);
+  },
 };
 
 const mutations = {
