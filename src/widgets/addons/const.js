@@ -9,7 +9,11 @@ export const steps = [
       this.$store.dispatch('modal/resetData');
     },
     applyFunc() {
-      if (this.$store.getters['modal/getTitle']) this.step += 1;
+      const title = this.$store.getters['modal/getTitle'];
+      if (title) {
+        this.$store.dispatch('modal/setUpdateProcess', { key: 'title', value: title });
+        this.step += 1;
+      }
     },
   },
   {

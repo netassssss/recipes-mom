@@ -52,7 +52,9 @@ export default {
     onRightHandlr() {
       if (this.allRecipes(this.currentRecipeIndex + 1)) this.currentRecipeIndex += 1;
     },
-    onLeftHandlr() {},
+    onLeftHandlr() {
+      if (this.currentRecipeIndex > 0) this.currentRecipeIndex -= 1;
+    },
   },
 };
 </script>

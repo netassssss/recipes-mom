@@ -8,7 +8,7 @@ module.exports = async (args) => {
   let data = {};
   try {
     const getDoc = await firebase.collection(path).get();
-    data = parseRecord(getDoc.docs.map(doc => doc.data()));
+    data = getDoc.docs.map(doc => doc.data());
   } catch (e) {
     console.log('error fetching data', e);
   } finally {
