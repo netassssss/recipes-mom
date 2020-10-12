@@ -92,6 +92,7 @@ const actions = {
     const currentTitle = ingKeys[step];
     if (ingredients[currentTitle]) {
       ingredients[titles[step]] = ingredients[currentTitle];
+      delete ingredients[currentTitle];
     } else {
       ingredients[titles[step]] = [{
         ing: '',

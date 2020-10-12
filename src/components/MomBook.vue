@@ -23,7 +23,7 @@
             class="ingredients-container"
             :class="directionClass">
           <li>
-            <p>{{ desc }}</p>
+            <textarea :class="directionClass" class="ing-textarea" :value="desc" readonly/>
           </li>
         </ul>
       </div>
@@ -101,7 +101,7 @@ export default {
         margin: 0;
       }
       width: calc(50% - 42px);
-      padding: 20px;
+      padding: 20px 40px;
       .ing-title {
         font-size: 20px;
         padding: 20px 0;
@@ -123,7 +123,35 @@ export default {
           padding-right: 10px;
         }
       }
+      .ing-textarea {
+        width: 100%;
+        border: none;
+        font-size: 16px;
+        overflow: auto;
+        outline: none;
+        resize: none;
+      }
     }
+  }
+}
+@media only screen and (max-width: 1200px) {
+  .book-container {
+    .content-sides {
+      flex-direction: column;
+      justify-content: flex-end;
+      .content-left-side {
+        width: calc(100% - 80px);
+        order: 1;
+        padding: 20px 40px;
+      }
+      .content-right-side {
+        width: calc(100% - 80px);
+        order: 2;
+      }
+    }
+  }
+  .inner-book-separator {
+    display: none;
   }
 }
 </style>

@@ -12,7 +12,7 @@ const setDocumentInDb = async (firebase, data, documentId) => {
     // delete first and then set
     await categoryRef.delete();
   }
-  await categoryRef.set(nodeData, { merge: true });
+  await categoryRef.set(nodeData);
 };
 
 const parseData = ({ ingredients, description, title }) => ({
