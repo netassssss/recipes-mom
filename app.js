@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser'); // body parsing middleware
 const passport = require('passport');
 const helmet = require('helmet'); // Help secure Express apps with various HTTP headers
+const path = require('path');
 const apiRouter = require('./server/api');
 
 /* eslint no-param-reassign:0 */
@@ -15,6 +16,7 @@ passport.deserializeUser((obj, cb) => {
 });
 
 const app = express();
+app.use(express.static(path.join(__dirname, 'dist')));
 
 // use helmet
 app.use(helmet());
