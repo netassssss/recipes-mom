@@ -6,6 +6,10 @@
       <div class="arrow-down"></div>
     </div>
     <ul v-else class="ul-dropdown-container" v-on-clickaway="closeDropdown">
+      <mom-input placeholder="Search..."
+                 :value="searchInput"
+                 width="100%"
+                 @change="changeInput"/>
       <li v-for="(item, index) in items"
           :key="index"
           class="li-item"
@@ -19,8 +23,12 @@
 <script>
 
 import { directive as onClickaway } from 'vue-clickaway';
+import MomInput from './MomInput.vue';
 
 export default {
+  components: {
+    MomInput,
+  },
   directives: {
     onClickaway,
   },
@@ -28,6 +36,10 @@ export default {
     items: {
       type: Array,
       default: () => [],
+    },
+    searchInput: {
+      type: String,
+      default: '',
     },
   },
   data() {
@@ -49,6 +61,9 @@ export default {
     },
     closeDropdown() {
       this.isOpen = false;
+    },
+    changeInput(value) {
+      this.$emit('filter', value);
     },
   },
 };

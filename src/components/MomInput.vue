@@ -1,5 +1,5 @@
 <template>
-  <div class="input-container">
+  <div class="input-container" :style="{width}">
     <input @input="setInput" :value="value" :placeholder="placeholder"/>
   </div>
 </template>
@@ -18,6 +18,10 @@ export default {
       type: String,
       default: '',
     },
+    width: {
+      type: String,
+      default: '200px',
+    },
   },
   methods: {
     setInput({ target }) {
@@ -33,7 +37,6 @@ export default {
 <style scoped lang="scss">
   @import "../styles/colors";
   .input-container {
-    width: 200px;
     height: 40px;
     background: $big-base-color;
     input {

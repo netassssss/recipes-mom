@@ -2,6 +2,8 @@
   <div>
     <mom-dropwon :items="items"
                  :selected-item="selectedItem"
+                 :search-input="searchInput"
+                 @filter="changeSearch"
                  @select="setSelectedItem">
       <template slot="selectedItem">
         {{ selectedItem.name }}
@@ -29,11 +31,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      items: `${STORE_NAME}/getDropdownData`,
+      getItems: `${STORE_NAME}/getDropdownData`,
     }),
+    items() {
+      if (!this.getItems) return [];
+      return this.getItems
+        .filter(({ name }) => !this.searchInput || (name ? name.toLowerCase().indexOf(this.searchInput.toLowerCase()) > -1 : false));
+    },
   },
   data() {
     return {
+      searchInput: '',
       selectedItem: { name: 'Select Recipe' },
     };
   },
@@ -53,6 +61,9 @@ export default {
         });
         this.$emit('update');
       }
+    },
+    changeSearch(input) {
+      this.searchInput = input;
     },
   },
 };
