@@ -9,7 +9,7 @@
     "server": "nodemon bin/www",
     "start-dev": "npm run dev & npm run server",
     "postinstall": "npm run build",
-    "start": "node server.js"
+    "start": "npm run dev"
   },
   "dependencies": {
     "body-parser": "^1.19.0",
