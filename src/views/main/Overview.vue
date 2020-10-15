@@ -6,7 +6,7 @@
       <template v-slot:default="slotProp">
         <div class="button-container">
           <img :src="navIcons[slotProp.index]" class="overview-img"/>
-          <div>{{ slotProp.item }}</div>
+          <div v-if="showWithText">{{ slotProp.item }}</div>
         </div>
       </template>
     </mom-nav-bar>
@@ -48,6 +48,9 @@ export default {
     ...mapGetters({
       getRecipes: `${STORE_NAME}/getRecipes`,
     }),
+    showWithText() {
+      return window.screen.availWidth >= 798;
+    },
   },
   data() {
     const navItems = ['All Recipes', 'Add Recipe', 'Update Recipe'];
@@ -80,6 +83,7 @@ export default {
     selectTab(tab) {
       this.selectedItem = tab;
       this.showAllRecipes = false;
+      this.isModalOpen = false;
       if (tab === this.navItems[1]) this.openModalOnAdd();
       else if (tab === this.navItems[2]) this.openModalOnUpdate();
       else this.resetTabs();

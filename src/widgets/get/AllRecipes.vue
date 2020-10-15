@@ -5,6 +5,7 @@
     </div>
     <div class="pages-container">
       <mom-single-page @click="onRightHandlr"
+                       v-if="currentRecipeIndex < getRecipes.length - 1"
                        class="page-left"/>
       <mom-single-page v-if="currentRecipeIndex"
                        right @click="onLeftHandlr"
@@ -28,6 +29,7 @@ export default {
   },
   computed: {
     ...mapGetters({
+      getRecipes: `${STORE_NAME}/getRecipes`,
       allRecipes: `${STORE_NAME}/allRecipes`,
     }),
     recipes() {
@@ -76,12 +78,23 @@ export default {
   justify-content: space-between;
   align-items: center;
   position: absolute;
-  top: calc(50% - 10px);
   .page-left {
     left: 0;
+    position: absolute;
   }
   .page-right {
     right: 0;
+    position: absolute;
+  }
+}
+@media only screen and (min-width: 798px){
+  .pages-container {
+    top: calc(50% - 10px);
+  }
+}
+@media only screen and (max-width: 798px){
+  .pages-container {
+    top: 20px;
   }
 }
 </style>

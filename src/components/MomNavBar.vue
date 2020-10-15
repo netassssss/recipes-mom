@@ -68,8 +68,7 @@ export default {
   width: 100%;
   height: 60px;
   background: $tab-bar-base;
-  position: absolute;
-  top: 0;
+  position: fixed;
   left: 0;
   color: #000;
   font-size: 22px;
@@ -103,6 +102,24 @@ export default {
     position: absolute;
     right: 10px;
     top: 10px;
+  }
+}
+
+@media only screen and (min-width: 1000px) {
+  .navbar-container {
+    top: 0;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .navbar-container {
+    bottom: 0;
+    .navbar-ul {
+      li {
+        justify-content: center;
+        margin: 0;
+        padding: 0;
+      }
+    }
   }
 }
 </style>

@@ -130,12 +130,14 @@ export default {
         overflow: auto;
         outline: none;
         resize: none;
+        overflow: hidden;
       }
     }
   }
 }
 @media only screen and (max-width: 1200px) {
   .book-container {
+    padding: 0 0 60px 0;
     .content-sides {
       flex-direction: column;
       justify-content: flex-end;

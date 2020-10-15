@@ -3,6 +3,7 @@
     <div class="modal-wrapper" :class="sizeClass" v-on-clickaway="closeModal">
       <div class="header-wrapper">
         <slot name="header"/>
+        <img :src="xicon" v-if="!showModalFromMQ" @click="closeModal"/>
       </div>
       <slot name="body"/>
       <div class="buttons-container" :class="{'single-button-container': !cancelText}">
@@ -17,6 +18,7 @@
 
 import { directive as onClickaway } from 'vue-clickaway';
 import MomButton from './MomButton.vue';
+import xicon from '../../static/img/xIcon.svg';
 
 const sizes = ['small', 'middle', 'big'];
 
@@ -50,6 +52,14 @@ export default {
     sizeClass() {
       return `modal-wrapper-${this.modalSize}`;
     },
+    showModalFromMQ() {
+      return window.screen.availWidth > 798;
+    },
+  },
+  data() {
+    return {
+      xicon,
+    };
   },
   methods: {
     closeModal() {
@@ -117,6 +127,24 @@ export default {
         justify-content: center;
         font-size: 20px;
         font-weight: 500;
+        img {
+          height: 20px;
+          width: 20px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 798px) {
+    .modal-container {
+      position: relative;
+      background: none;
+      z-index: 0;
+      .modal-wrapper {
+        .header-wrapper {
+          width: calc(100% - 40px);
+          justify-content: space-between;
+          padding: 0 20px;
+        }
       }
     }
   }
