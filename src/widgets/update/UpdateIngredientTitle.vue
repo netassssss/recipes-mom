@@ -8,8 +8,8 @@
 
 import { mapGetters } from 'vuex';
 import IngredientsTitle from '../general/common/IngredientsTitle.vue';
-import { setIngredientsTitle } from '../../store/addRecipeStore/actions';
-import { STORE_NAME } from '../../store/addRecipeStore/const';
+import { setIngredientsTitle } from '../../store/updateRecipeStore/actions';
+import { STORE_NAME } from '../../store/updateRecipeStore/const';
 
 export default {
   components: {
@@ -35,6 +35,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-  @import "src/styles/common";
-  @include label-and-button-container(150px);
+@import "src/styles/common";
+@include label-and-button-container(150px);
 </style>

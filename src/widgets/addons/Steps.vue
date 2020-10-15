@@ -14,6 +14,7 @@
              :key="index"
              class="components-container">
           <component :is="comp"
+                     :recipes="recipes"
                      @nextStep="nextStep"
                      v-bind="currentProps"/>
         </div>
@@ -34,6 +35,10 @@ import SaveToDb from './SaveToDb.vue';
 
 import Updatedropdown from '../update/Update.vue';
 import UpdateTitle from '../update/UpdateIngredientsTitle.vue';
+import UpdateRecipeContent from '../update/UpdateRecipeContent.vue';
+import UpdateIngredientTitle from '../update/UpdateIngredientTitle.vue';
+import UpdateIngredients from '../update/UpdateIngredients.vue';
+import UpdateDescription from '../update/Description.vue';
 
 import { steps as addSteps } from './const';
 import { steps as updateSteps } from '../update/const';
@@ -49,7 +54,11 @@ export default {
     AddIngredients,
     Updatedropdown,
     DescriptionStep,
+    UpdateDescription,
+    UpdateIngredients,
+    UpdateRecipeContent,
     AddIngredientsTitle,
+    UpdateIngredientTitle,
   },
   created() {
     if (this.steps[this.step] && this.steps[this.step].created) {
@@ -64,6 +73,10 @@ export default {
     update: {
       type: Boolean,
       default: false,
+    },
+    recipes: {
+      type: Array,
+      default: () => [],
     },
   },
   data() {

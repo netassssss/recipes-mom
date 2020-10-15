@@ -12,6 +12,7 @@
     </mom-nav-bar>
     <steps :is-modal-open="isModalOpen"
            @close="resetAndCloseTabs"
+           :recipes="getRecipes"
            :update="isUpdate"/>
     <all-recipes v-if="showAllRecipes"/>
   </div>
@@ -19,6 +20,8 @@
 
 <script>
 /* eslint no-debugger:0 */
+import { mapGetters } from 'vuex';
+
 import MomNavBar from '../../components/MomNavBar.vue';
 import addIcon from '../../../static/img/addIcon.svg';
 import updateIcon from '../../../static/img/updateIcon.svg';
@@ -29,6 +32,7 @@ import Steps from '../../widgets/addons/Steps.vue';
 import AllRecipes from '../../widgets/get/AllRecipes.vue';
 
 import { init } from '../../store/getRecipeStore/actions';
+import { STORE_NAME } from '../../store/getRecipeStore/const';
 
 export default {
   mixins: [modalMixin],
@@ -39,6 +43,11 @@ export default {
   },
   created() {
     this.$store.dispatch(init);
+  },
+  computed: {
+    ...mapGetters({
+      getRecipes: `${STORE_NAME}/getRecipes`,
+    }),
   },
   data() {
     const navItems = ['All Recipes', 'Add Recipe', 'Update Recipe'];

@@ -11,7 +11,7 @@
 
 /* eslint no-debugger: 0 */
 import { mapGetters } from 'vuex';
-import { STORE_NAME } from '../../store/addRecipeStore/const';
+import { STORE_NAME } from '../../store/updateRecipeStore/const';
 import {
   setIngredients, addNewIng, removeIng,
 } from '../../store/addRecipeStore/actions';

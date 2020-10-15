@@ -18,10 +18,8 @@
 <script>
 
 /* eslint no-debugger:0 */
-import { mapGetters } from 'vuex';
 import { getCurrentRecipeData } from '../../store/getRecipeStore/actions';
-import { updateUiRecipe } from '../../store/addRecipeStore/actions';
-import { STORE_NAME } from '../../store/getRecipeStore/const';
+import { updateUiRecipe } from '../../store/updateRecipeStore/actions';
 
 import MomDropwon from '../../components/MomDropdown.vue';
 
@@ -29,10 +27,21 @@ export default {
   components: {
     MomDropwon,
   },
+  props: {
+    recipes: {
+      type: Array,
+      default: () => [],
+    },
+  },
   computed: {
-    ...mapGetters({
-      getItems: `${STORE_NAME}/getDropdownData`,
-    }),
+    getItems() {
+      if (!this.recipes) return [];
+      return this.recipes
+        .map((recipe) => ({
+          documentId: recipe.documentId,
+          name: Object.keys(recipe).find((r) => r !== 'documentId' && r !== 'level'),
+        }));
+    },
     items() {
       if (!this.getItems) return [];
       return this.getItems

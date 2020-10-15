@@ -20,8 +20,8 @@
 
 /* eslint no-debugger:0 */
 import { mapGetters } from 'vuex';
-import { STORE_NAME, SkipThisPhase2345 } from '@/store/addRecipeStore/const';
-import { setUpdateTitle } from '../../store/addRecipeStore/actions';
+import { STORE_NAME, SkipThisPhase2345 } from '@/store/updateRecipeStore/const';
+import { setUpdateTitle } from '../../store/updateRecipeStore/actions';
 
 import MomDropdown from '../../components/MomDropdown.vue';
 import MomButton from '../../components/MomButton.vue';

@@ -4,8 +4,8 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import { STORE_NAME } from '../../store/addRecipeStore/const';
-import { setProcess } from '../../store/addRecipeStore/actions';
+import { STORE_NAME } from '../../store/updateRecipeStore/const';
+import { setRecipeTitle } from '../../store/updateRecipeStore/actions';
 
 import RecipeContent from '../general/common/RecipeContent.vue';
 
@@ -25,8 +25,8 @@ export default {
     }),
   },
   methods: {
-    setTitle(value) {
-      this.$store.dispatch(setProcess, { key: 'title', value });
+    setTitle(title) {
+      this.$store.dispatch(setRecipeTitle, { title });
     },
   },
 };
