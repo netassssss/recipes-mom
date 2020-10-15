@@ -1,22 +1,26 @@
 <template>
   <div class="label-container">
     <label for="title" class="long-label"
+           v-if="isDesktop"
     >Ingredients Title:</label>
     <mom-input id="title"
                :value="innerTitle[titleNum]"
-               placeholder="Enter Ingredients' Title"
+               :placeholder="placeholder"
                @change="setTitle"/>
   </div>
 </template>
 
 <script>
 
+/* eslint no-debugger:0 */
 import MomInput from '../../../components/MomInput.vue';
+import mixinScreen from '../../../mixins/screen';
 
 export default {
   components: {
     MomInput,
   },
+  mixins: [mixinScreen],
   props: {
     titleNum: {
       type: Number,
@@ -25,6 +29,11 @@ export default {
     innerTitle: {
       type: Array,
       default: () => [],
+    },
+  },
+  computed: {
+    placeholder() {
+      return this.isDesktop ? 'Enter Ingredients\' Title' : 'Ingredients Title';
     },
   },
   methods: {

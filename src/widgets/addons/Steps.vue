@@ -155,4 +155,12 @@ export default {
       align-items: center;
     }
   }
+  @media only screen and (max-width: 798px){
+    .steps-container {
+      .components-container {
+        padding: 20px 5px;
+        width: calc(100% - 10px);
+      }
+    }
+  }
 </style>

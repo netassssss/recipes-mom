@@ -3,7 +3,7 @@
     <div class="modal-wrapper" :class="sizeClass" v-on-clickaway="closeModal">
       <div class="header-wrapper">
         <slot name="header"/>
-        <img :src="xicon" v-if="!showModalFromMQ" @click="closeModal"/>
+        <img :src="xicon" v-if="!isDesktop" @click="closeModal"/>
       </div>
       <slot name="body"/>
       <div class="buttons-container" :class="{'single-button-container': !cancelText}">
@@ -20,6 +20,8 @@ import { directive as onClickaway } from 'vue-clickaway';
 import MomButton from './MomButton.vue';
 import xicon from '../../static/img/xIcon.svg';
 
+import mixinScreen from '../mixins/screen';
+
 const sizes = ['small', 'middle', 'big'];
 
 export default {
@@ -29,6 +31,7 @@ export default {
   directives: {
     onClickaway,
   },
+  mixins: [mixinScreen],
   props: {
     isOpen: {
       type: Boolean,
@@ -51,9 +54,6 @@ export default {
   computed: {
     sizeClass() {
       return `modal-wrapper-${this.modalSize}`;
-    },
-    showModalFromMQ() {
-      return window.screen.availWidth > 798;
     },
   },
   data() {

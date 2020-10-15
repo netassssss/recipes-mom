@@ -1,6 +1,6 @@
 <template>
   <div class="update-ingredients-container">
-    <div class="label-container">
+    <div class="label-container label-container-mobile {">
       <label class="long-label"
       >Choose Ingredients or add new from here:</label>
       <mom-dropdown
@@ -76,4 +76,16 @@ export default {
   padding-left: 60px;
 }
 @include label-and-button-container(calc(100% - 230px), 'space-between');
+@media only screen and (max-width: 798px) {
+  .update-ingredients-container {
+    .label-container-mobile {
+      flex-direction: column;
+      height: 100px;
+      .long-label {
+        padding-bottom: 10px;
+        width: 100%;
+      }
+    }
+  }
+}
 </style>

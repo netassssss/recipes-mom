@@ -7,7 +7,7 @@
           class="single-item">
         <div v-if="index > 0" class="separator-ing"></div>
         <div class="label-container">
-          <label for="desc">Ingredient:</label>
+          <label for="desc" v-if="isDesktop">Ingredient:</label>
           <mom-input id="desc"
                      :value="item.ing"
                      placeholder="Enter Ingredients"
@@ -17,14 +17,14 @@
                       class="ingredients-button">Add</mom-button>
         </div>
         <div class="label-container">
-          <label for="amount">Amount:</label>
+          <label for="amount" v-if="isDesktop">Amount:</label>
           <mom-input id="amount"
                      :value="item.amount"
                      placeholder="Enter Amount"
                      @change="(value) => setIng(index, value, 'amount')"/>
         </div>
         <div class="label-container">
-          <label for="units">Units:</label>
+          <label for="units" v-if="isDesktop">Units:</label>
           <mom-input id="units"
                      :value="item.units"
                      placeholder="Enter Units"
@@ -42,12 +42,14 @@
 /* eslint no-debugger: 0 */
 import MomButton from '../../../components/MomButton.vue';
 import MomInput from '../../../components/MomInput.vue';
+import mixinScreen from '../../../mixins/screen';
 
 export default {
   components: {
     MomInput,
     MomButton,
   },
+  mixins: [mixinScreen],
   props: {
     modalSize: {
       type: Number,
