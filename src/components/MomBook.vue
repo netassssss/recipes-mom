@@ -23,7 +23,7 @@
             class="ingredients-container"
             :class="directionClass">
           <li>
-            <textarea :class="directionClass" class="ing-textarea" :value="desc" readonly/>
+            <div :class="directionClass" class="ing-textarea">{{desc}}</div>
           </li>
         </ul>
       </div>
