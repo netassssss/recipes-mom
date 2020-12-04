@@ -1,5 +1,6 @@
 <template>
   <div class="book-container">
+    <button class="back-button" @click="back">Back</button>
     <div class="content-sides" :class="directionClass">
       <div class="content-left-side">
         <h1 :class="directionClass">{{ title }}</h1>
@@ -63,15 +64,31 @@ export default {
       width: 200,
     };
   },
+  methods: {
+    back() {
+      this.$emit('back');
+    },
+  },
 };
 </script>
 
 <style scoped lang="scss">
+@import "../styles/colors";
 .book-container {
   width: 100%;
   height: 100%;
   padding-top: 60px;
   position: relative;
+  .back-button {
+    min-width: 100px;
+    background: $big-base-color;
+    border-right: 4px;
+    border: none;
+    box-shadow: 0 4px 4px -1px rgba(0, 0, 0, 0.6);
+    padding: 5px 0;
+    font-size: 16px;
+    cursor: pointer;
+  }
   .content-sides {
     width: 100%;
     display: flex;

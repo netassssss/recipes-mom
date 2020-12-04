@@ -1,7 +1,7 @@
 <template>
   <div class="all-recipes-container">
     <div class="books-container">
-      <mom-book :content="content"/>
+      <mom-book :content="content" @back="back"/>
     </div>
     <div class="pages-container">
       <mom-single-page @click="onRightHandlr"
@@ -57,6 +57,9 @@ export default {
     onLeftHandlr() {
       if (this.currentRecipeIndex > 0) this.currentRecipeIndex -= 1;
     },
+    back() {
+      this.$emit('back');
+    },
   },
 };
 </script>
@@ -94,7 +97,7 @@ export default {
 }
 @media only screen and (max-width: 798px){
   .pages-container {
-    top: 20px;
+    top: 40px;
   }
 }
 </style>

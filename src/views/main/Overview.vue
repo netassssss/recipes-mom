@@ -14,7 +14,10 @@
            @close="resetAndCloseTabs"
            :recipes="getRecipes"
            :update="isUpdate"/>
-    <all-recipes v-if="showAllRecipes"/>
+    <table-of-contents v-if="showAllRecipes"
+                       :titles="titles"
+                       @recipe="getRecipe"/>
+    <all-recipes v-if="!showAllRecipes && showBackground" @back="back"/>
   </div>
 </template>
 
@@ -30,8 +33,9 @@ import modalMixin from '../../mixins/modalMixin';
 
 import Steps from '../../widgets/addons/Steps.vue';
 import AllRecipes from '../../widgets/get/AllRecipes.vue';
+import TableOfContents from '../../widgets/get/TableOfContents.vue';
 
-import { init } from '../../store/getRecipeStore/actions';
+import { setTitles, getRecipe } from '../../store/getRecipeStore/actions';
 import { STORE_NAME } from '../../store/getRecipeStore/const';
 
 export default {
@@ -40,16 +44,24 @@ export default {
     Steps,
     MomNavBar,
     AllRecipes,
+    TableOfContents,
   },
   created() {
-    this.$store.dispatch(init);
+    this.$store.dispatch(setTitles);
   },
   computed: {
     ...mapGetters({
+      getTitles: `${STORE_NAME}/getTitles`,
       getRecipes: `${STORE_NAME}/getRecipes`,
     }),
     showWithText() {
       return window.screen.availWidth >= 798;
+    },
+    titles() {
+      const len = Math.ceil(this.getTitles.length / 2);
+      const leftTitles = this.getTitles.slice(0, len);
+      const rightTitles = this.getTitles.slice(len);
+      return [leftTitles, rightTitles];
     },
   },
   data() {
@@ -57,6 +69,7 @@ export default {
     const selectedItem = navItems[0];
     return {
       showAllRecipes: true,
+      showBackground: true,
       isUpdate: false,
       navItems,
       selectedItem,
@@ -75,6 +88,7 @@ export default {
     resetTabs() {
       [this.selectedItem] = this.navItems;
       this.showAllRecipes = true;
+      this.showBackground = true;
     },
     resetAndCloseTabs() {
       this.closeModal();
@@ -83,10 +97,18 @@ export default {
     selectTab(tab) {
       this.selectedItem = tab;
       this.showAllRecipes = false;
+      this.showBackground = window.screen.availWidth >= 798;
       this.isModalOpen = false;
       if (tab === this.navItems[1]) this.openModalOnAdd();
       else if (tab === this.navItems[2]) this.openModalOnUpdate();
       else this.resetTabs();
+    },
+    getRecipe(item) {
+      this.$store.dispatch(getRecipe, { item });
+      this.showAllRecipes = false;
+    },
+    back() {
+      this.showAllRecipes = true;
     },
   },
 };
