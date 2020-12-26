@@ -6,6 +6,7 @@ import Api from './api';
 const getState = () => ({
   recipes: [],
   titles: [],
+  currentRecipeIndex: 0,
 });
 
 const validateRecipeDoesnotExist = (recipes, recipe) => {
@@ -28,13 +29,17 @@ const actions = {
     const response = await Api.getTitles();
     commit('SET_TITLES', response.body.data);
   },
-  async getRecipe({ commit }, { item }) {
+  async getRecipe({ commit, state }, { item }) {
     const { documentId } = item;
     const response = await Api.getRecipe({ documentId });
     commit('SET_RECIPES', response.body.data);
+    commit('SET_CURRENT_INDEX', state.recipes.length - 1);
   },
   saveRecipes({ commit }, { recipes }) {
     commit('SET_RECIPES', recipes);
+  },
+  setCurrentIndex({ commit }, { index }) {
+    commit('SET_CURRENT_INDEX', index);
   },
 };
 
@@ -44,6 +49,9 @@ const mutations = {
   },
   SET_TITLES(state, titles) {
     state.titles = titles;
+  },
+  SET_CURRENT_INDEX(state, index) {
+    state.currentRecipeIndex = index;
   },
 };
 

@@ -7,10 +7,12 @@ export const getDropdownData = (state) => state.recipes
 export const allRecipes = (state) => (index) => state.recipes[index];
 export const getRecipes = (state) => state.recipes;
 export const getTitles = (state) => state.titles;
+export const currentRecipeIndex = (state) => state.currentRecipeIndex;
 
 export default {
   getTitles,
   getRecipes,
   allRecipes,
   getDropdownData,
+  currentRecipeIndex,
 };

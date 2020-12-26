@@ -18,6 +18,7 @@
 
 import { mapGetters } from 'vuex';
 import { STORE_NAME } from '../../store/getRecipeStore/const';
+import { setCurrentIndex } from '../../store/getRecipeStore/actions';
 
 import MomBook from '../../components/MomBook.vue';
 import MomSinglePage from '../../components/SinglePage.vue';
@@ -31,13 +32,16 @@ export default {
     ...mapGetters({
       getRecipes: `${STORE_NAME}/getRecipes`,
       allRecipes: `${STORE_NAME}/allRecipes`,
+      currentRecipeIndex: `${STORE_NAME}/currentRecipeIndex`,
     }),
     recipes() {
       return this.allRecipes(this.currentRecipeIndex);
     },
     content() {
       if (!this.recipes) return {};
-      const title = Object.keys(this.recipes).find((r) => r !== 'level' && r !== 'documentId');
+      /* eslint no-debugger: 0 */
+      const keys = Object.keys(this.recipes);
+      const title = keys.find((r) => r !== 'level' && r !== 'documentId');
       return {
         title,
         ingredients: this.recipes[title].ingredients,
@@ -45,17 +49,12 @@ export default {
       };
     },
   },
-  data() {
-    return {
-      currentRecipeIndex: 0,
-    };
-  },
   methods: {
     onRightHandlr() {
-      if (this.allRecipes(this.currentRecipeIndex + 1)) this.currentRecipeIndex += 1;
+      if (this.allRecipes(this.currentRecipeIndex + 1)) this.$store.dispatch(setCurrentIndex, { index: this.currentRecipeIndex + 1 });
     },
     onLeftHandlr() {
-      if (this.currentRecipeIndex > 0) this.currentRecipeIndex -= 1;
+      if (this.currentRecipeIndex > 0) this.$store.dispatch(setCurrentIndex, { index: this.currentRecipeIndex - 1 });
     },
     back() {
       this.$emit('back');
